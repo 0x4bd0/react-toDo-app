@@ -1,12 +1,12 @@
 import { createContext, useState } from "react";
 
 
-const ListContext = createContext()
+export const ListContext = createContext()
 
 
 const ListContextProvider = (props) => {
 
-    let [list,setList] = useState([])
+    let [list,setList] = useState([{id:1,text:"do this and that"}])
 
     return (  
         <ListContext.Provider    value={{list}}>

@@ -6,7 +6,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Checkbox from '@material-ui/core/Checkbox';
 import Avatar from '@material-ui/core/Avatar';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import {ListContext} from '../contexts/list';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,40 +22,30 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CheckboxListSecondary() {
   const classes = useStyles();
-  const [checked, setChecked] = useState([1])
+    const listContext = useContext(ListContext)
 
-  const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
+   let {list} = listContext
 
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    setChecked(newChecked);
-  };
 
   return (
-    <List dense className={classes.root}>
-      {[0, 1, 2, 3].map((value) => {
+    <List  className={classes.root}>
+      {list.map((value) => {
         const labelId = `checkbox-list-secondary-label-${value}`;
         return (
           <ListItem key={value} button>
             <ListItemAvatar>
               <Avatar
-                alt={`Avatar n°${value + 1}`}
-                src={`/static/images/avatar/${value + 1}.jpg`}
+                alt={value.text.split('').reverse().pop().toUpperCase()}
+               src={`/static/images/avatar/${value + 1}.jpg`}
               />
             </ListItemAvatar>
-            <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
+            <ListItemText id={labelId} primary={value.text} />
             <ListItemSecondaryAction>
               <Checkbox
                 edge="end"
-                onChange={handleToggle(value)}
-                checked={checked.indexOf(value) !== -1}
-                inputProps={{ 'aria-labelledby': labelId }}
+               // onChange={handleToggle(value)}
+               // checked={checked.indexOf(value) !== -1}
+                //inputProps={{ 'aria-labelledby': labelId }}
               />
             </ListItemSecondaryAction>
           </ListItem>
