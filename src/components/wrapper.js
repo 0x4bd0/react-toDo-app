@@ -1,12 +1,13 @@
+import { Container } from "@material-ui/core";
 import Header from "./header";
 import List from "./list";
 
 const Wrapper = () => {
     return ( 
-        <div className="wrapper">
+        <Container className="wrapper"fixed>
         <Header></Header>
         <List></List>
-        </div>
+        </Container>
      );
 }
  
