@@ -24,7 +24,7 @@ export default function CheckboxListSecondary() {
   const classes = useStyles();
     const listContext = useContext(ListContext)
 
-   let {list} = listContext
+   let {  list, dispatch } = listContext
 
 
   return (
@@ -32,7 +32,7 @@ export default function CheckboxListSecondary() {
       {list.map((value) => {
         const labelId = `checkbox-list-secondary-label-${value}`;
         return (
-          <ListItem key={value} button>
+          <ListItem key={value.id} button>
             <ListItemAvatar>
               <Avatar
                 alt={value.text.split('').reverse().pop().toUpperCase()}
@@ -43,9 +43,12 @@ export default function CheckboxListSecondary() {
             <ListItemSecondaryAction>
               <Checkbox
                 edge="end"
-               // onChange={handleToggle(value)}
-               // checked={checked.indexOf(value) !== -1}
-                //inputProps={{ 'aria-labelledby': labelId }}
+               onChange={() => dispatch({ 
+                                            type: value.done ? "uncheck" : "check",
+                                            payload: {id:value.id},
+                                       })}
+               checked={value.done}
+                inputProps={{ 'aria-labelledby': labelId }}
               />
             </ListItemSecondaryAction>
           </ListItem>
