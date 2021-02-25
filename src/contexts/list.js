@@ -10,6 +10,15 @@ const changeStatus = (data,id,status) => {
     return data
 }
 
+const add = (state,data) => {
+     state.push({
+         text : data.text,
+         id : state[state.length-1].id + 1,
+         done : false
+     })
+    return state
+}
+
 const themeReducer = (state,action) => {
    switch(action.type){
        case 'insert' :
@@ -20,6 +29,8 @@ const themeReducer = (state,action) => {
           return changeStatus([...state],action.payload.id,false)
         case 'check' : 
           return changeStatus([...state],action.payload.id,true)
+        case 'add' : 
+          return add([...state],action.payload)
         default  :
           return state
    }
