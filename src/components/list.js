@@ -15,8 +15,15 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     margin : '0 auto',
     border : '1px solid #00000038;',
-    borderRadius : '12px'
+    borderRadius : '12px',
+    height : '60vh',
+    overflowX : 'hidden',
+    overflowY : 'scroll'
   },
+  li : {
+    borderBottom : '1px solid #ddd',
+    padding : '15px 30px'
+  }
 }));
 
 export default function CheckboxListSecondary() {
@@ -31,7 +38,7 @@ export default function CheckboxListSecondary() {
       {list.map((value) => {
         const labelId = `checkbox-list-secondary-label-${value}`;
         return (
-          <ListItem key={value.id} button>
+          <ListItem key={value.id} button className={classes.li}>
             <ListItemAvatar>
               <Avatar
                 alt={value.text.split('').reverse().pop().toUpperCase()}
