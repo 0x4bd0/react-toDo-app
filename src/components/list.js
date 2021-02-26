@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     backgroundColor: theme.palette.background.paper,
     margin : '0 auto',
-    border : '1px solid #00000038;',
+    border : '1px solid',
     borderRadius : '12px',
     height : '60vh',
     overflowX : 'hidden',

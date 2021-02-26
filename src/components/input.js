@@ -4,6 +4,15 @@ import { ListContext } from "../contexts/list";
 
 
 const useStyles = makeStyles((theme) => ({
+    root : {
+     padding : '20px',
+     borderTop : '1px solid',
+     borderLeft : '1px solid',
+     borderRight : '1px solid',
+     borderTopLeftRadius : '12px',
+     borderTopRightRadius : '12px'
+
+    },
     input: {
       width: '80%',
     },
@@ -21,7 +30,7 @@ const InputComponent = () => {
     let { dispatch } = listContext
 
     return ( 
-        <Box>
+        <Box className={classes.root} >
         <Input placeholder="Do this and that ..." className={classes.input} 
         value={input}
         onChange={

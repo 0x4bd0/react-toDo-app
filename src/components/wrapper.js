@@ -6,8 +6,9 @@ import List from "./list";
 const Wrapper = () => {
     return ( 
         <Container className="wrapper"fixed>
+            <h1>Simple ToDo App</h1>
+            <div className="space"></div>
         <InputComponent></InputComponent>
-
         <div className="space"></div>
         <List></List>
         </Container>
