@@ -1,9 +1,9 @@
-import { createContext, useReducer, useState } from "react";
+import { createContext, useEffect, useReducer, useState } from "react";
 
 
 export const ListContext = createContext()
 
-const  defaultValue = [{id:1,text:"do this and that",done:false}]
+const  defaultValue = localStorage.getItem('list')  ? JSON.parse(localStorage.getItem('list')) : []
 
 const changeStatus = (data,id,status) => {
     data[data.findIndex(item=>item.id === id)].done = status
@@ -13,7 +13,7 @@ const changeStatus = (data,id,status) => {
 const add = (state,data) => {
      state.push({
          text : data.text,
-         id : state[state.length-1].id + 1,
+         id : state.length > 0 ?  state[state.length-1].id + 1 : 1,
          done : false
      })
     return state
@@ -37,8 +37,13 @@ const themeReducer = (state,action) => {
 }
 
 const ListContextProvider = (props) => {
+  console.log(defaultValue)
 
     let [list,dispatch] = useReducer(themeReducer, defaultValue)
+
+    useEffect(()=>{
+      localStorage.setItem('list',JSON.stringify(list))
+    },[list])
 
     return (  
         <ListContext.Provider    value={{list,dispatch}}>

@@ -29,7 +29,11 @@ const InputComponent = () => {
         }
         ></Input>
         <Button variant="contained" color="primary" className={classes.btn} 
-        onClick={()=>dispatch({type:'add',payload:{text:input}})}
+        onClick={()=>{
+          dispatch({type:'add',payload:{text:input}})
+          setInput('')
+        } 
+        }
         >+</Button>
         </Box>
      );

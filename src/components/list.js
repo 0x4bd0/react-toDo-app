@@ -41,6 +41,7 @@ export default function CheckboxListSecondary() {
             <ListItemText id={labelId} primary={value.text} />
             <ListItemSecondaryAction>
               <Checkbox
+              color="primary"
                 edge="end"
                onChange={() => dispatch({ 
                                             type: value.done ? "uncheck" : "check",
