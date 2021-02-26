@@ -19,6 +19,12 @@ const add = (state,data) => {
     return state
 }
 
+const deleteTodo = (state,data) => {
+  console.log(data.id)
+   state.splice(state.findIndex(i=>i.id===data.id),1)
+  return state
+}
+
 const themeReducer = (state,action) => {
    switch(action.type){
        case 'insert' :
@@ -31,6 +37,8 @@ const themeReducer = (state,action) => {
           return changeStatus([...state],action.payload.id,true)
         case 'add' : 
           return add([...state],action.payload)
+        case 'delete' : 
+          return deleteTodo([...state],action.payload)
         default  :
           return state
    }

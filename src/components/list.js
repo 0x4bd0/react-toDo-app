@@ -4,10 +4,13 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Checkbox from '@material-ui/core/Checkbox';
 import Avatar from '@material-ui/core/Avatar';
 import { useContext, useState } from 'react';
 import {ListContext} from '../contexts/list';
+import ConfirmDelete from './confirmDelete'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,13 +30,26 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CheckboxListSecondary() {
-  const classes = useStyles();
+   const classes = useStyles();
     const listContext = useContext(ListContext)
 
+  let [openDeleteModel,setOpenDeleteModal] = useState(false) 
+   let [toBeDeleted, setTobeDeleted] = useState(null)
    let {  list, dispatch } = listContext
-
-
+  
+   const deletetoDo = () => {
+      dispatch({
+        type : 'delete',
+        payload : {
+          id : toBeDeleted
+        }
+      })
+      setOpenDeleteModal(false)
+      setTobeDeleted(null)
+   }
+    
   return (
+    <div>
     <List  className={classes.root}>
       {list.map((value) => {
         const labelId = `checkbox-list-secondary-label-${value}`;
@@ -47,6 +63,13 @@ export default function CheckboxListSecondary() {
             </ListItemAvatar>
             <ListItemText id={labelId} primary={value.text} />
             <ListItemSecondaryAction>
+            <IconButton aria-label="delete" color="secondary"
+            onClick={()=>{
+              setTobeDeleted(value.id)
+              setOpenDeleteModal(true)}}
+            >
+              <DeleteIcon />
+            </IconButton>
               <Checkbox
               color="primary"
                 edge="end"
@@ -62,5 +85,13 @@ export default function CheckboxListSecondary() {
         );
       })}
     </List>
+
+<ConfirmDelete 
+openDeleteModel={openDeleteModel} 
+setOpenDeleteModal={setOpenDeleteModal}
+deletetoDo = {deletetoDo}
+></ConfirmDelete>
+    </div>
+
   );
 }
